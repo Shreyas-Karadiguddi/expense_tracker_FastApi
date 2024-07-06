@@ -3,6 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+FastAPI/models/config.py
 # C extensions
 *.so
 
