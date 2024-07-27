@@ -16,7 +16,7 @@ async def signup(request: SignUpModel):
     if signup_user is not None:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,detail=f"User with username already exists") 
 
-    
+
     new_user = Login(
         username = request.username,
         password = generate_password_hash(request.password)
