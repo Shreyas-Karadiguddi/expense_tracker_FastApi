@@ -6,16 +6,16 @@ import Button from "@mui/material/Button";
 import * as loginActions from '../actions/login_api'
 
 
-const Login = () => {
+const SignUp = () => {
   // fonsa bhi function
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
 
-  const {data:loginData,mutate:sendLoginData} = loginActions.useUserLogin()
+  const {data:signUpData,mutate:sendSignUpData} = loginActions.useUserSignUp()
 
   useEffect(() => {
-    if(loginData){console.log('response',loginData)}
-  },[loginData]) 
+    if(signUpData){console.log('response',signUpData)}
+  },[signUpData]) 
 
   const handleUsername = (e) => {
     setUsername(e.target.value);
@@ -26,7 +26,7 @@ const Login = () => {
   };
 
   const handleSubmit = (e) => {
-    sendLoginData({
+    sendSignUpData({
       username,
       password
     })
@@ -58,11 +58,11 @@ const Login = () => {
         />
         <br />
         <Button variant="contained" onClick={handleSubmit}>
-          Login
+          SignUp
         </Button>
       </div>
     </>
   );
 };
 
-export default Login;
+export default SignUp;
