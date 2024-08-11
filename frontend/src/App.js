@@ -1,18 +1,27 @@
-// import SignUp from "./components/SignUp";
-import Login from "./components/Login";
-import { QueryClient,QueryClientProvider } from "react-query";
+// src/App.js
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import LandingPage from './components/LandingPage';
+import SignUp from './components/SignUp';
+import Login from './components/Login';
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
-function App() {
+const App = () => {
   return (
     <div className="App">
       <QueryClientProvider client={queryClient}>
-      {/* <SignUp/> */}
-      <Login/>
+        <Router>
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </Router>
       </QueryClientProvider>
     </div>
   );
-}
+};
 
 export default App;
