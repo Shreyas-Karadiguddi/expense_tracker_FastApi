@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { Container, Card, TextField, Button, Typography, Avatar, Box, Alert } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { useUserLogin } from "../actions/login_api";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(""); // State to store error message
+  const navigate = useNavigate();
 
   const { mutate: sendLoginData } = useUserLogin();
 
@@ -25,6 +27,7 @@ const Login = () => {
       {
         onSuccess: (data) => {
           console.log("Login successful:", data);
+          navigate("/home");
           // Handle successful login (e.g., redirect or show a success message)
         },
         onError: (error) => {
@@ -36,6 +39,13 @@ const Login = () => {
   };
 
   return (
+    <div style={{
+      background: 'linear-gradient(135deg, #f5f5f5, #d0e4f4)',
+      minHeight: '100vh', 
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    }}>
     <Container component="main" maxWidth="xs">
       <Card sx={{ mt: 8, p: 4, boxShadow: 3 }}>
         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
@@ -71,6 +81,7 @@ const Login = () => {
               fullWidth
               variant="contained"
               sx={{ mt: 2, mb: 2 }}
+
             >
               Login
             </Button>
@@ -78,6 +89,7 @@ const Login = () => {
         </Box>
       </Card>
     </Container>
+    </div>
   );
 };
 

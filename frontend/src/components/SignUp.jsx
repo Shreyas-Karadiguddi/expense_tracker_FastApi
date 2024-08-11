@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Container,Card, CardContent, TextField, Button, Typography, Avatar, Box, Alert } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import * as loginActions from '../actions/login_api';
 
 
@@ -8,8 +9,10 @@ const SignUp = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(""); // State to store error message
+  const navigate = useNavigate();
 
   const {data:signUpData,mutate:sendSignUpData} = loginActions.useUserSignUp()
+
 
   const handleUsername = (e) => {
     setUsername(e.target.value);
@@ -28,7 +31,7 @@ const SignUp = () => {
     {
     onSuccess: (data) => {
       console.log("Sign Up successful:", data);
-      // Handle successful login (e.g., redirect or show a success message)
+      navigate("/login");
     },
     onError: (error) => {
       console.error("Sign Up  failed:", error);
@@ -40,6 +43,13 @@ const SignUp = () => {
 
 
   return (
+    <div style={{
+      background: 'linear-gradient(135deg, #f5f5f5, #d0e4f4)',
+      minHeight: '100vh', 
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    }}>
     <Container component="main" maxWidth="xs">
     <Card sx={{ mt: 8, p: 4, boxShadow: 3 }}>
       <CardContent>
@@ -77,6 +87,7 @@ const SignUp = () => {
               required
             />
             {error && <Alert severity="error" sx={{ mt: 2 }}>{error}</Alert>} {/* Display error message */}
+            
             <Button
               type="submit"
               fullWidth
@@ -90,6 +101,7 @@ const SignUp = () => {
       </CardContent>
     </Card>
   </Container>
+  </div>
   );
 };
 
