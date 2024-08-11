@@ -5,15 +5,11 @@ import * as loginActions from '../actions/login_api';
 
 
 const SignUp = () => {
-  const [username, setUsername] = useState();
-  const [password, setPassword] = useState();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState(""); // State to store error message
 
   const {data:signUpData,mutate:sendSignUpData} = loginActions.useUserSignUp()
-
-  // useEffect(() => {
-  //   if(signUpData){console.log('response',signUpData)}
-  // },[signUpData]) 
 
   const handleUsername = (e) => {
     setUsername(e.target.value);
@@ -24,6 +20,7 @@ const SignUp = () => {
   };
 
   const handleSubmit = (e) => {
+    e.preventDefault();
     sendSignUpData({
       username,
       password
