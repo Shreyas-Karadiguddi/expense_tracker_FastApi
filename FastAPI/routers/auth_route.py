@@ -12,20 +12,21 @@ session=Session(bind=engine)
 @auth_router.post("/signup")
 async def signup(request: SignUpModel):
     signup_user = session.query(Login).filter(Login.username == request.username).first()
-    print(signup_user)
-    if signup_user is not None:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,detail=f"User with username already exists") 
+    if signup_user:
+        print(signup_user)
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,detail="User with username already exists")
+    else: 
+        new_user = Login(
+            username = request.username,
+            password = generate_password_hash(request.password)
+        )
 
-
-    new_user = Login(
-        username = request.username,
-        password = generate_password_hash(request.password)
-    )
-
-    session.add(new_user)
-    session.commit()
-    session.refresh(new_user)
-    return new_user
+        session.add(new_user)
+        session.commit()
+        session.refresh(new_user)
+        return new_user
+    
+    
 
 
 @auth_router.post("/login")
