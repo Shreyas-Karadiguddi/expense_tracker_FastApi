@@ -28,7 +28,7 @@ const Login = () => {
       {
         onSuccess: (data) => {
           console.log("Login successful:", data);
-          navigate("/home");
+          navigate("/dashboard");
           // Handle successful login (e.g., redirect or show a success message)
         },
         onError: (error) => {
@@ -81,7 +81,7 @@ const Login = () => {
             
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
               <p>Don't have an account?</p>
-              <Link to="/signup" style={{ marginLeft: '10px' }}>Sign Up</Link>
+              <Link to="/signup" style={{ marginLeft: '10px' }}>Create One!</Link>
             </div>
             <Button
               type="submit"

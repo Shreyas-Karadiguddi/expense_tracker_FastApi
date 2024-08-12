@@ -3,6 +3,7 @@ import { Container,Card, CardContent, TextField, Button, Typography, Avatar, Box
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import * as loginActions from '../actions/login_api';
+import { Link } from 'react-router-dom';
 
 
 const SignUp = () => {
@@ -104,7 +105,10 @@ const SignUp = () => {
               required
             />           
             {error && <Alert severity="error" sx={{ mt: 2 }}>{error}</Alert>} {/* Display error message */}
-            
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <p>Already with us?</p>
+              <Link to="/login" style={{ marginLeft: '10px' }}>Hop In!</Link>
+            </div>            
             <Button
               type="submit"
               fullWidth

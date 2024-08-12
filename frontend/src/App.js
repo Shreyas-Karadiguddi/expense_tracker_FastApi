@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import LandingPage from './components/LandingPage';
 import SignUp from './components/SignUp';
 import Login from './components/Login';
-import Home from './components/Home';
+import Dashboard from './components/Dashboard';
 
 const queryClient = new QueryClient();
 
@@ -18,7 +18,7 @@ const App = () => {
             <Route path="/" element={<LandingPage />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/home" element={<Home />} />
+            <Route path="/dashboard" element={<Dashboard />} />
 
           </Routes>
         </Router>
