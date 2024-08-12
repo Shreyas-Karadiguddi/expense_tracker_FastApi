@@ -4,6 +4,7 @@ from typing import Optional
 class SignUpModel(BaseModel):
     username: str
     password: str
+    confirmPassword: str
 
     class Config:
         from_attributes = True 
