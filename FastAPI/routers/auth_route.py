@@ -1,7 +1,7 @@
 from fastapi import APIRouter,HTTPException,status
 from schemas.authentication_schema import SignUpModel,LoginModel
 from werkzeug.security import generate_password_hash , check_password_hash
-from models.login_model import Login
+from models.user_model import User
 from models.database import Session,engine
 from utils import JWTtoken
 
@@ -11,7 +11,7 @@ session=Session(bind=engine)
 
 @auth_router.post("/signup")
 async def signup(request: SignUpModel):
-    signup_user = session.query(Login).filter(Login.username == request.username).first()
+    signup_user = session.query(User).filter(User.username == request.username).first()
 
     if signup_user:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,detail="User with username already exists")
@@ -19,7 +19,9 @@ async def signup(request: SignUpModel):
     if request.password != request.confirmPassword:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,detail="Passwords do not match")
     
-    new_user = Login(
+    new_user = User(
+        firstName = request.firstName,
+        lastName = request.lastName,
         username = request.username,
         password = generate_password_hash(request.password)
     )
@@ -29,13 +31,10 @@ async def signup(request: SignUpModel):
     session.refresh(new_user)
     return {"username": new_user.username, "message": "User created successfully"}
 
-    
-    
-
 
 @auth_router.post("/login")
 async def login(request: LoginModel):
-    login_user = session.query(Login).filter(Login.username == request.username).first()
+    login_user = session.query(User).filter(User.username == request.username).first()
 
     if login_user and check_password_hash(login_user.password,request.password):
 

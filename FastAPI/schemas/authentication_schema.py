@@ -2,6 +2,8 @@ from pydantic import BaseModel
 from typing import Optional
 
 class SignUpModel(BaseModel):
+    firstName: str
+    lastName: str
     username: str
     password: str
     confirmPassword: str

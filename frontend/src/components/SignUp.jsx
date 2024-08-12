@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom';
 
 
 const SignUp = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -16,6 +18,13 @@ const SignUp = () => {
 
   const {mutate:sendSignUpData} = loginActions.useUserSignUp()
 
+  const handleFirstName = (e) => {
+    setFirstName(e.target.value);
+  };
+
+  const handleLastName = (e) => {
+    setLastName(e.target.value);
+  };
 
   const handleUsername = (e) => {
     setUsername(e.target.value);
@@ -32,6 +41,8 @@ const SignUp = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     sendSignUpData({
+      firstName,
+      lastName,
       username,
       password,
       confirmPassword
@@ -75,6 +86,23 @@ const SignUp = () => {
             Sign Up
           </Typography>
           <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+           <TextField
+              label="First Name"
+              variant="outlined"
+              value={firstName}
+              onChange={handleFirstName}
+              fullWidth
+              margin="normal"
+              required
+            />  
+            <TextField
+              label="Last Name"
+              variant="outlined"
+              value={lastName}
+              onChange={handleLastName}
+              fullWidth
+              margin="normal"
+            />
             <TextField
               label="Username"
               variant="outlined"
