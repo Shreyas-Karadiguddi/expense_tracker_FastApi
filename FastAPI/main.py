@@ -1,8 +1,7 @@
 from fastapi import FastAPI
 from routers.auth_route import auth_router
 from fastapi.middleware.cors import CORSMiddleware
-
-
+from routers.add_expense import add_expense_router
 
 app = FastAPI()
 
@@ -25,5 +24,5 @@ def main():
 
 
 app.include_router(auth_router)
+app.include_router(add_expense_router)
 
-#Test Push
