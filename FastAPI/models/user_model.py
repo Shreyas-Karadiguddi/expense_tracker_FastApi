@@ -12,7 +12,7 @@ class User(Base):
     username = Column(String(20),unique=True)
     password = Column(Text,nullable=False)
 
-
+    add_expense = relationship("Expense",back_populates="user")
     def __repr__(self):
         return f"Username : {self.username}"
 

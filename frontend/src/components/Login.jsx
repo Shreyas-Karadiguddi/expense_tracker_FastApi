@@ -4,6 +4,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { useUserLogin } from "../actions/login_api";
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -23,19 +24,23 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+  
     sendLoginData(
       { username, password },
       {
         onSuccess: (data) => {
           console.log("Login successful:", data);
+          axios.defaults.headers.common['Authorization'] = `Bearer ${data.access_token}`;
+  
+          // Navigate to the dashboard
           navigate("/dashboard");
-          // Handle successful login (e.g., redirect or show a success message)
         },
         onError: (error) => {
           console.error("Login failed:", error);
-          setError(error.response?.data?.detail || "An error occurred"); // Update error state
+          setError(error.response?.data?.detail || "An error occurred");
         },
-      }
+      },
+      
     );
   };
 

@@ -11,6 +11,9 @@ class Expense(Base):
     description = Column(Text,nullable=False)
     amount = Column(Float)
     date = Column(Date)
+    user_id = Column(Integer,ForeignKey("users.id"))
+
+    user = relationship("User",back_populates = "add_expense")
 
     def __repr__(self):
         return f"Category : {self.category},Amount : {self.amount}"
