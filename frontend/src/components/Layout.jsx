@@ -1,18 +1,30 @@
 import React ,{useState} from 'react';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Menu, MenuItem, IconButton } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const navigate = useNavigate();
   
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   
-  const handleClose = () => {
-    setAnchorEl(null);
+  const handleLogOut = () => {
+    localStorage.removeItem('authToken')
+    navigate('/')
   };
   
+  const handleProfile = () =>{
+    setAnchorEl(null)
+  }
+
+  const handleClose = () =>{
+    setAnchorEl(null)
+  }
+
+
   return (
     <div style={styles.navbar}>
       <span style={styles.navbarTitle}><i> Expense Tracker </i></span>
@@ -24,8 +36,8 @@ const Navbar = () => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem onClick={handleProfile}>Profile</MenuItem>
+        <MenuItem onClick={handleLogOut}>Logout</MenuItem>
       </Menu>
     </div>
   );
