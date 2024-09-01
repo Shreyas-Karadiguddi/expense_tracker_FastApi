@@ -30,6 +30,10 @@ const Login = () => {
       {
         onSuccess: (data) => {
           console.log("Login successful:", data);
+          const token = data.access_token;
+
+          // Store token in local storage
+          localStorage.setItem('authToken', token);
           axios.defaults.headers.common['Authorization'] = `Bearer ${data.access_token}`;
   
           // Navigate to the dashboard
