@@ -8,12 +8,27 @@ import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import PrivateRoute from './components/PrivateRoute';
 
+import axios from 'axios';
 
 
 
 const queryClient = new QueryClient();
 
 const App = () => {
+
+// Set up an Axios interceptor to include the token in all requests
+axios.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
   return (
     <div className="App">
