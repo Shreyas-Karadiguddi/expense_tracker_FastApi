@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import { TextField, Button, IconButton, Dialog, DialogTitle, DialogContent, Paper } from "@mui/material";
+import { TextField, Button, IconButton, Dialog, DialogTitle, DialogContent, Paper, Box } from "@mui/material";
 import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 import CloseIcon from '@mui/icons-material/Close';
 import { styled } from '@mui/material/styles';
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { Box } from '@mui/material';
 import { useAddExpense } from "../actions/add_expense_api";
 import dayjs from 'dayjs';
-import { useSnackbar } from 'notistack'; 
+import { useSnackbar } from 'notistack';
+import Layout from "./Layout"; // Adjust import if needed
 
 
 // Custom button and close button styling
@@ -38,7 +38,6 @@ const PaperComponent = (props) => (
   <Paper {...props} sx={{ borderRadius: '15px', padding: '20px', boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)' }} />
 );
 
-
 const Dashboard = () => {
   const [open, setOpen] = useState(false);
   const [category, setCategory] = useState("");
@@ -46,8 +45,9 @@ const Dashboard = () => {
   const [amount, setAmount] = useState();
   const [date, setDate] = useState(dayjs());
   const { enqueueSnackbar } = useSnackbar();
-  
   const { mutate: sendAddExpenseData } = useAddExpense();
+
+
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -77,16 +77,15 @@ const Dashboard = () => {
   
   const handleDate = (newDate) => {
     setDate(newDate); // Handle the date directly
-
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const formattedDate = dayjs(date).format('YYYY-MM-DD')
+    const formattedDate = dayjs(date).format('YYYY-MM-DD');
 
     sendAddExpenseData(
-      { category, description, amount, date:formattedDate },
+      { category, description, amount, date: formattedDate },
       {
         onSuccess: (data) => {
           console.log("Added Expense successfully:", data);
@@ -94,8 +93,7 @@ const Dashboard = () => {
           setDescription("");
           setAmount();
           setDate(dayjs());
-          handleClose()
-          
+          handleClose();
           enqueueSnackbar("Expense added successfully!", { variant: 'success' });
         },
       }
@@ -103,100 +101,105 @@ const Dashboard = () => {
   };
 
 
+
   return (
-    <>
-      <CustomButton
-        variant="contained"
-        startIcon={<AddCircleOutlinedIcon />}
-        onClick={handleClickOpen}
-        sx = {{margin : 1}}
-      >
-        Add Expense
-      </CustomButton>
+    <Layout>
+
+
+      <div style={{ padding: '20px' }}>
+        <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '20px' }}>
+          <CustomButton
+            variant="contained"
+            startIcon={<AddCircleOutlinedIcon />}
+            onClick={handleClickOpen}
+          >
+            Add Expense
+          </CustomButton>
+        </div>
       
-      <Dialog
-        open={open}
-        onClose={handleDialogClose}
-        maxWidth="xs"
-        fullWidth
-        PaperComponent={PaperComponent}
-      >
-      <DialogTitle sx={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '1.5rem', fontWeight: 'bold', color: '#333' }}>
-        Add New Expense
-        <CloseButton onClick={handleClose}>
-          <CloseIcon />
-        </CloseButton>
-      
-      </DialogTitle>
-        <DialogContent sx={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
-        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
-          <TextField
-            margin="dense"
-            label="Category"
-            value = {category}
-            type="text"
-            onChange={handleCategory}
-            fullWidth
-            variant="outlined"
-            required
-            sx={{ backgroundColor: '#f9f9f9', borderRadius: '5px' }}
-          />
-          <TextField
-            margin="dense"
-            label="Description"
-            value = {description}
-            type="text"
-            onChange={handleDescription}
-            fullWidth
-            variant="outlined"
-            required
-            sx={{ backgroundColor: '#f9f9f9', borderRadius: '5px' }}
-          />
-          <TextField
-            margin="dense"
-            label="Amount"
-            value = {amount}
-            type="number"
-            onChange={handleAmount}
-            InputProps={{
-              inputProps: {
-                min: 1,      // Ensures only positive numbers
-              }
-            }}
-            fullWidth
-            variant="outlined"
-            required
-            sx={{ backgroundColor: '#f9f9f9', borderRadius: '5px', marginBottom:'15px' }}
-          />
-          <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 2 }}>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <MobileDatePicker
-                label="Date"
-                value={date}
-                onChange={handleDate}
+        <Dialog
+          open={open}
+          onClose={handleDialogClose}
+          maxWidth="xs"
+          fullWidth
+          PaperComponent={PaperComponent}
+        >
+          <DialogTitle 
+            sx={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '1.5rem', fontWeight: 'bold', color: '#333' }}
+          >
+            Add New Expense
+            <CloseButton onClick={handleClose}>
+              <CloseIcon />
+            </CloseButton>
+          </DialogTitle>
+          <DialogContent sx={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+              <TextField
+                margin="dense"
+                label="Category"
+                value={category}
+                type="text"
+                onChange={handleCategory}
+                fullWidth
+                variant="outlined"
+                required
                 sx={{ backgroundColor: '#f9f9f9', borderRadius: '5px' }}
               />
-            </LocalizationProvider>
-          </Box>
+              <TextField
+                margin="dense"
+                label="Description"
+                value={description}
+                type="text"
+                onChange={handleDescription}
+                fullWidth
+                variant="outlined"
+                required
+                sx={{ backgroundColor: '#f9f9f9', borderRadius: '5px' }}
+              />
+              <TextField
+                margin="dense"
+                label="Amount"
+                value={amount}
+                type="number"
+                onChange={handleAmount}
+                InputProps={{
+                  inputProps: {
+                    min: 1, // Ensures only positive numbers
+                  }
+                }}
+                fullWidth
+                variant="outlined"
+                required
+                sx={{ backgroundColor: '#f9f9f9', borderRadius: '5px', marginBottom: '15px' }}
+              />
+              <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 2 }}>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <MobileDatePicker
+                    label="Date"
+                    value={date}
+                    onChange={handleDate}
+                    sx={{ backgroundColor: '#f9f9f9', borderRadius: '5px' }}
+                  />
+                </LocalizationProvider>
+              </Box>
+              <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  required
+                  sx={{ mt: 2, mb: 2, width: 100, marginTop: 5 }}
+                >
+                  Add
+                </Button>
+              </Box>
+            </Box>
+          </DialogContent>
+        </Dialog>
+      </div>
 
-          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-            <Button
-              type="submit"
-              variant="contained"
-              required
-              sx={{ mt: 2, mb: 2, width: 100, marginTop: 5}}
-            >
-              Add
-            </Button>
-          </Box>
-        </Box>
-        </DialogContent>
-      </Dialog>
-      
-      
-      
+    
 
-    </>
+    </Layout>
   );
 };
 

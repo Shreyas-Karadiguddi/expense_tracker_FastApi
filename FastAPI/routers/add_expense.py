@@ -34,10 +34,3 @@ def add_expense(request : addExpenseModel, currentUser:LoginModel = Depends(oaut
     
 
 
-
-@add_expense_router.get("/add_expense")
-def add_expense(currentUser:LoginModel = Depends(oauth2.get_current_user)):
-    user = session.query(User).filter(User.username == currentUser.username).first()
-
-    all_expense = session.query(Expense).all()
-    return jsonable_encoder(all_expense)

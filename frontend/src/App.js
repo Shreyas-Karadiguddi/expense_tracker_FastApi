@@ -10,6 +10,7 @@ import PrivateRoute from './components/PrivateRoute';
 
 
 
+
 const queryClient = new QueryClient();
 
 const App = () => {

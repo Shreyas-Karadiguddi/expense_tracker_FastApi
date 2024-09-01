@@ -38,7 +38,7 @@ async def login(request: LoginModel):
 
     if login_user and check_password_hash(login_user.password,request.password):
 
-        access_token = JWTtoken.create_access_token(data={"sub": login_user.username})
+        access_token = JWTtoken.create_access_token(data={"sub": login_user.username,"sub2":login_user.id})
         return {"access_token": access_token, "token_type": "bearer"}
     
     raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,detail="Couldn't Authenticate User")
