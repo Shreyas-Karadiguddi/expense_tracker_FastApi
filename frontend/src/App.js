@@ -5,11 +5,10 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import LandingPage from './components/LandingPage';
 import SignUp from './components/SignUp';
 import Login from './components/Login';
-import Dashboard from './components/Dashboard';
 import PrivateRoute from './components/PrivateRoute';
-
+import Dashboard from './components/Dashboard';
+import Analytics from './components/Analytics';
 import axios from 'axios';
-
 
 
 const queryClient = new QueryClient();
@@ -40,6 +39,13 @@ axios.interceptors.request.use(
             <Route path="/login" element={<Login />} />
             <Route path="/dashboard" element={<PrivateRoute>
               <Dashboard />
+            </PrivateRoute>} />
+
+            <Route path="/dashboard" element={<PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>} />
+            <Route path="/analytics" element={<PrivateRoute>
+              <Analytics />
             </PrivateRoute>} />
 
           </Routes>

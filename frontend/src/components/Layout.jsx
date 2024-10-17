@@ -2,10 +2,13 @@ import React ,{useState} from 'react';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Menu, MenuItem, IconButton } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom'; // Import useLocation
+
 
 const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const navigate = useNavigate();
+
   
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -48,16 +51,36 @@ const Navbar = () => {
 
 
 const Sidebar = () => {
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const isActive = (path) => location.pathname === path; 
   return (
     <div style={styles.sidebar}>
-      <div>
-        <h3>Dashboard</h3>
-      </div>
-
-      <div>
-        <h3>Analytics</h3>
-      </div>
+    <div
+      style={{
+        ...styles.button,
+        backgroundColor: isActive('/dashboard') ? styles.activeButton.backgroundColor : styles.button.backgroundColor,
+      }}
+      onClick={() => navigate('/dashboard')}
+      onMouseOver={(e) => e.currentTarget.style.backgroundColor = styles.buttonHover.backgroundColor}
+      onMouseOut={(e) => e.currentTarget.style.backgroundColor = isActive('/dashboard') ? styles.activeButton.backgroundColor : styles.button.backgroundColor}
+    >
+      Dashboard
     </div>
+    <div
+      style={{
+        ...styles.button,
+        backgroundColor: isActive('/analytics') ? styles.activeButton.backgroundColor : styles.button.backgroundColor,
+      }}
+      onClick={() => navigate('/analytics')}
+      onMouseOver={(e) => e.currentTarget.style.backgroundColor = styles.buttonHover.backgroundColor}
+      onMouseOut={(e) => e.currentTarget.style.backgroundColor = isActive('/analytics') ? styles.activeButton.backgroundColor : styles.button.backgroundColor}
+    >
+      Analytics
+    </div>
+  </div>
   );
 };
 
@@ -114,6 +137,23 @@ const styles = {
     height: '40px'
   },
 
+  button: {
+    backgroundColor: '#004080',
+    color: '#ffffff',
+    padding: '15px',
+    margin: '10px 0',
+    textAlign: 'center',
+    cursor: 'pointer',
+    borderRadius: '5px',
+    transition: 'background-color 0.3s ease',
+  },
+  buttonHover: {
+    backgroundColor: '#0066cc',
+  },
+
+  activeButton: {
+    backgroundColor: '#336699', // Darker color for the active button
+  },
  
 };
 
