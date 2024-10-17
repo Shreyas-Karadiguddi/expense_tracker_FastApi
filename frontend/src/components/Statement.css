@@ -29,3 +29,11 @@
 .expense-table tr:hover {
   background-color: #ddd; /* Highlight on hover */
 }
+
+/* Add this to wrap text in the category and description columns */
+.expense-table td.category, 
+.expense-table td.description {
+  max-width: 200px; /* Set a max-width to wrap text after ~50 characters */
+  word-wrap: break-word; /* Enable word wrap for long text */
+  white-space: normal; /* Ensure text breaks to the next line */
+}
