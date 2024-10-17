@@ -72,13 +72,13 @@ const Sidebar = () => {
     <div
       style={{
         ...styles.button,
-        backgroundColor: isActive('/analytics') ? styles.activeButton.backgroundColor : styles.button.backgroundColor,
+        backgroundColor: isActive('/statement') ? styles.activeButton.backgroundColor : styles.button.backgroundColor,
       }}
-      onClick={() => navigate('/analytics')}
+      onClick={() => navigate('/statement')}
       onMouseOver={(e) => e.currentTarget.style.backgroundColor = styles.buttonHover.backgroundColor}
-      onMouseOut={(e) => e.currentTarget.style.backgroundColor = isActive('/analytics') ? styles.activeButton.backgroundColor : styles.button.backgroundColor}
+      onMouseOut={(e) => e.currentTarget.style.backgroundColor = isActive('/statement') ? styles.activeButton.backgroundColor : styles.button.backgroundColor}
     >
-      Analytics
+      Statement
     </div>
   </div>
   );
