@@ -1,33 +1,31 @@
 // src/App.js
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes  } from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import LandingPage from './components/LandingPage';
-import SignUp from './components/SignUp';
-import Login from './components/Login';
-import PrivateRoute from './components/PrivateRoute';
-import Dashboard from './components/Dashboard';
-import Analytics from './components/Analytics';
-import axios from 'axios';
-
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "react-query";
+import LandingPage from "./components/LandingPage";
+import SignUp from "./components/SignUp";
+import Login from "./components/Login";
+import PrivateRoute from "./components/PrivateRoute";
+import Dashboard from "./components/Dashboard";
+import Statement from "./components/Statement";
+import axios from "axios";
 
 const queryClient = new QueryClient();
 
 const App = () => {
-
-// Set up an Axios interceptor to include the token in all requests
-axios.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem('authToken');
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+  // Set up an Axios interceptor to include the token in all requests
+  axios.interceptors.request.use(
+    (config) => {
+      const token = localStorage.getItem("authToken");
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
     }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
+  );
 
   return (
     <div className="App">
@@ -37,17 +35,31 @@ axios.interceptors.request.use(
             <Route path="/" element={<LandingPage />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/dashboard" element={<PrivateRoute>
-              <Dashboard />
-            </PrivateRoute>} />
+            <Route
+              path="/dashboard"
+              element={
+                <PrivateRoute>
+                  <Dashboard />
+                </PrivateRoute>
+              }
+            />
 
-            <Route path="/dashboard" element={<PrivateRoute>
-              <Dashboard />
-            </PrivateRoute>} />
-            <Route path="/analytics" element={<PrivateRoute>
-              <Analytics />
-            </PrivateRoute>} />
-
+            <Route
+              path="/dashboard"
+              element={
+                <PrivateRoute>
+                  <Dashboard />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/statement"
+              element={
+                <PrivateRoute>
+                  <Statement />
+                </PrivateRoute>
+              }
+            />
           </Routes>
         </Router>
       </QueryClientProvider>

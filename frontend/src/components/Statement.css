@@ -1,0 +1,31 @@
+.expense-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.expense-table th,
+.expense-table td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.expense-table th {
+  background-color: #004080; /* Header background color */
+  color: white; /* Header text color */
+}
+
+.even-row {
+  background-color: #f2f2f2; /* Light grey for even rows */
+}
+
+.odd-row {
+  background-color: #ffffff; /* White for odd rows */
+}
+
+.expense-table tr:hover {
+  background-color: #ddd; /* Highlight on hover */
+}
