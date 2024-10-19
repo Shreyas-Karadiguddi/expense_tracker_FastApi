@@ -42,10 +42,19 @@ const Statement = () => {
     return `${day}-${month}-${year}`;
   };
 
-  // Sort the data by date in descending order
-  const sortedData = [...data].sort(
-    (a, b) => new Date(b.date) - new Date(a.date)
-  );
+// Sort the data by date and time in descending order
+const sortedData = [...data].sort((a, b) => {
+  const dateA = new Date(a.date);
+  const dateB = new Date(b.date);
+
+  // If the dates are equal, compare by the time of entry (you can use id or createdAt if available)
+  if (dateA.getTime() === dateB.getTime()) {
+    return b.id - a.id; // Assuming `id` increases with each new entry
+  }
+
+  // Otherwise, compare by date
+  return dateB - dateA;
+});
 
   // Function to open the confirmation dialog
   const handleClickOpen = (id) => {
