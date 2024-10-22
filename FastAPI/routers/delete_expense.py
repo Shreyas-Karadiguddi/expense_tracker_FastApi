@@ -12,7 +12,7 @@ session=Session(bind=engine)
 
 
 @delete_expense_router.delete("/delete_expense/{id}")
-def get_expense(id,currentUser:LoginModel = Depends(oauth2.get_current_user)):
+def delete_expense(id,currentUser:LoginModel = Depends(oauth2.get_current_user)):
     expense = session.query(Expense).filter(Expense.id == id).first()
 
     session.delete(expense)

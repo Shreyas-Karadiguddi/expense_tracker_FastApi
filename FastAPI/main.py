@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from routers.add_expense import add_expense_router
 from routers.get_expense import get_expense_router
 from routers.delete_expense import delete_expense_router
+from routers.edit_expense import edit_expense_router
 
 app = FastAPI()
 
@@ -29,5 +30,7 @@ app.include_router(auth_router)
 app.include_router(add_expense_router)
 app.include_router(get_expense_router)
 app.include_router(delete_expense_router)
+app.include_router(edit_expense_router)
+
 
 
