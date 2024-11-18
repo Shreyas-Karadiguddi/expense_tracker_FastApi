@@ -116,7 +116,7 @@ const AddExpense = ({ refetch }) => {
   };
 
   return (
-    <div style={{ padding: "10px", marginBottom: "0" }}>
+    <div style={{ padding: "10px", marginTop:"40px"}}>
       <div
         style={{
           display: "flex",

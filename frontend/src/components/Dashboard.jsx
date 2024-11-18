@@ -7,12 +7,12 @@ const Dashboard = () => {
     <Layout>
     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
 
-      <div>
+      <div style={{marginTop:"15px",marginLeft:"10px"}} >
         <h1>Dashboard Page</h1>
   
 
-      </div>
-      <AddExpense />
+      </div  >
+      <AddExpense style={{marginTop:"10px"}}/>
         </div>
     </Layout>
   );
